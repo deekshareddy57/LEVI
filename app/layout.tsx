@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google"; // Removed Cinzel
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer"; // Assuming you have this
+import Footer from "@/components/Footer";
+import { Providers } from "./providers"; // <--- Import this
 
-// Use Inter for EVERYTHING to match the clean original site
 const inter = Inter({
     subsets: ["latin"],
     variable: "--font-inter",
-    weight: ["300", "400", "600", "800"] // We need heavy weights for headers
+    weight: ["300", "400", "600", "700", "900"]
 });
 
 export const metadata: Metadata = {
-    title: "Legal Ethics Ventures Institute",
-    description: "The New Agora for Legal Innovation.",
+    title: "Legal & Ethics Ventures Institute",
+    description: "Legal Training Meets Real Product Building.",
 };
 
 export default function RootLayout({
@@ -22,14 +22,15 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            {/* Apply font-sans globally */}
-            <body className={`${inter.variable} font-sans antialiased bg-levi-black text-white flex flex-col min-h-screen`}>
-                <Navbar />
-                <main className="flex-grow">
-                    {children}
-                </main>
-                <Footer />
+        <html lang="en" suppressHydrationWarning>
+            <body className={`${inter.variable} font-sans antialiased bg-white dark:bg-levi-black text-levi-ink dark:text-white flex flex-col min-h-screen transition-colors duration-300`}>
+                <Providers> {/* <--- Wrap everything inside Providers */}
+                    <Navbar />
+                    <main className="flex-grow">
+                        {children}
+                    </main>
+                    <Footer />
+                </Providers>
             </body>
         </html>
     );
